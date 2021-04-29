@@ -10,10 +10,11 @@ const orderStates = [
 ] as const;
 
 type OrderState = typeof orderStates[number];
-
-export const getUserOrderStates = (arr: OrderState[]): string[] => {
-  const filteredStates = [] as string[];
-  arr.forEach((element) => {
+type UserState = Exclude<OrderState, "buyingSupplies" | "producing">;
+// eslint-disable-next-line no-shadow
+export const getUserOrderStates = (orderStates: OrderState[]): UserState[] => {
+  const filteredStates = [] as UserState[];
+  orderStates.forEach((element) => {
     if (element !== "buyingSupplies" && element !== "producing") {
       filteredStates.push(element);
     }
